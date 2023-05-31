@@ -52,7 +52,7 @@ export default function Search() {
     const downloadCSV = async () => {
         try {
             const response = await axios.get(`http://172.174.177.153:3000/youtube/get-videos-by-query/${searchWord}`);
-            const setCSVData = await response.data.data.map((ele) => {
+            const setCSVData = await response.data.message.map((ele) => {
                 delete ele.createdBy;
                 delete ele.updatedBy;
                 delete ele.createdAt;
@@ -65,8 +65,6 @@ export default function Search() {
                 console.log(ele.title);
                 return ele;
             });
-
-            console.log(setCSVData);
 
             const csvData = convertToCSV(setCSVData);
             const blob = new Blob([csvData], { type: 'text/csv' });
