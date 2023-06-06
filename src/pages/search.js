@@ -58,11 +58,21 @@ export default function Search() {
                 delete ele.createdAt;
                 delete ele.id;
                 delete ele.comments;
-                ele.title = ele.title.replace(/\s+/g, ' ').replace(/[\r\n]+/g, '').trim();
-                ele.title = `${ele.title}`;
-                delete ele.description;
+                ele.title = ele.title.replace(/[^\w\s,]/gi, ' ');
+                ele.title = `"${ele.title}"`
+                ele.searchKeyword = ele.searchKeyword.replace(/[^\w\s,]/gi, ' ')
+                ele.searchKeyword = `"${ele.searchKeyword}"`
+                // delete ele.title
+                ele.description = ele.description.replace(/[^\w\s,]/gi, ' ');
+                ele.description = `"${ele.description}"`
                 delete ele.tags;
-                console.log(ele.title);
+                // delete ele.transcription
+                if (ele.transcription) {
+                    ele.transcription = ele.transcription.replace(/[^\w\s,]/gi, ' ')
+                    ele.transcription = `"${ele.transcription}"`
+                } else {
+                    ele.transcription = ""
+                }
                 return ele;
             });
 
